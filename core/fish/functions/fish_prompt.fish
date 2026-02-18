@@ -1,11 +1,25 @@
-# a called to `_pure_prompt_new_line` is triggered by an event
 function fish_prompt
-    set --local exit_code $status # save previous exit code
+    set -l last_status $status
+    set -l cwd (prompt_pwd)
+    set -l git_branch (command git branch --show-current 2>/dev/null)
 
-    _pure_print_prompt_rows # manage default vs. compact prompt
-    _pure_place_iterm2_prompt_mark # place iTerm shell integration mark
-    echo -e -n (_pure_prompt $exit_code) # print prompt
-    echo -e (_pure_prompt_ending) # reset colors and end prompt
+    # first line: directory + git branch
+    set_color blue
+    echo -n $cwd
+    if test -n "$git_branch"
+        set_color normal
+        echo -n " "
+        set_color magenta
+        echo -n $git_branch
+    end
+    echo
 
-    set _pure_fresh_session false
+    # second line: prompt symbol
+    if test $last_status -eq 0
+        set_color magenta
+    else
+        set_color red
+    end
+    echo -n "❯ "
+    set_color normal
 end

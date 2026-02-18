@@ -1,3 +1,3 @@
 function _pure_prompt_ending
-    echo (set_color normal)" "
+    echo -e -n (set_color normal)" "
 end
