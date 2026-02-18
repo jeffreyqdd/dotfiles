@@ -42,3 +42,15 @@ nnoremap <S-Up>    :resize +2<CR>
 nnoremap <S-Down>  :resize -2<CR>
 nnoremap <S-Left>  :vertical resize -2<CR>
 nnoremap <S-Right> :vertical resize +2<CR>
+
+" Source system-specific config
+let s:dotfiles = fnamemodify(resolve(expand('<sfile>:p')), ':h:h:h')
+if has('macunix')
+    let s:sys = 'macos'
+else
+    let s:sys = 'linux'
+endif
+let s:sysvim = s:dotfiles . '/systems/' . s:sys . '/vim/system.vim'
+if filereadable(s:sysvim)
+    execute 'source ' . s:sysvim
+endif
