@@ -1,2 +1,16 @@
-__pycache__
-iterm2/**
+# Ignore everything in ~/.config by default
+*
+
+# Track dotfiles infrastructure
+!.gitignore
+!.gitmodules
+!README.md
+!install.sh
+
+# Track core (portable) configs
+!core/
+!core/**
+
+# Track system-specific configs
+!systems/
+!systems/**
